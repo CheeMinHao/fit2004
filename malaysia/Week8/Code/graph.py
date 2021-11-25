@@ -3,7 +3,7 @@ class Graph:
     def __init__(self, V):
         # array
         self.vertices = [None] * len(V)
-        for i in range(V):
+        for i in range(len(V)):
             self.vertices[i] = [None] * len(V)
 
         """
@@ -12,6 +12,11 @@ class Graph:
         for i in range(V):
             self.matrix[i] = [None] * len(V)
         """
+
+    def add_edges(self, argv_edges):
+        for edge in argv_edges:
+            u, v, w = edge[0], edge[1], edge[2]
+            self.vertices[u].add_edge(Edge(u, v, w))
 
     def bfs(self, source):
         """
@@ -69,6 +74,8 @@ class Graph:
         while len(discovered) > 0:
             u = discovered.pop(0)
             u.visited = True
+            if u == destination:
+                return
             for edge in u.edges:
                 v = edge.v
                 if v.discovered == False:
@@ -100,7 +107,7 @@ class Graph:
                 # It is in heap, but not yet finalise
                 else if v.visited == False:
                     # If i find a shorter route, change it
-                    if v.distance > u.distance  + edge.w:
+                    if v.distance > u.distance:
                         # Update Distance
                         v.distance = u.distance + edge.w
                         # Update Heap
@@ -125,6 +132,9 @@ class Vertex:
         self.visited = True
         # Distance
         self.distance = 0
+
+    def add_edge(self, edge):
+        self.edges.append(edge)
 
     def added_to_queue(self):
         self.discovered = True
