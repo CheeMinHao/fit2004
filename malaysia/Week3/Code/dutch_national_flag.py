@@ -6,22 +6,22 @@ def quick_sort_dnf(new_list, start, end):
 
 def dutch_national_flag(new_list, start, end):
 
-    mid = (start + end) // 2
-    pivot = array[mid]
-    
-    place = start
-    while place <= end:
-        if array[place] < pivot:
-            array[place], array[start] = array[start], array[place]
-            start += 1
-            place += 1
-        elif array[place] == pivot:
+    low = 0
+    mid = 0
+    pivot = new_list[(start + end) // 2]
+
+    while mid <= end:
+        if new_list[mid] < pivot: 
+            new_list[mid] , new_list[low] = new_list[low], new_list[mid]
+            low += 1
+            mid += 1
+        elif new_list[mid] == pivot:
             mid += 1
         else:
-            array[place], array[end] = array[end], array[place]
+            new_list[mid] , new_list[end] = new_list[end], new_list[mid]
+            end -= 1
 
-    return start, place
-    
+    return low, mid
     
     
 
